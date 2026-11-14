@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101014">
+<title>Wi-Fi | Balart 3D Labs</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background: #101014;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 390px;
+  padding: 32px 25px;
+  border-radius: 22px;
+  background: #1b1a22;
+  border: 1px solid #49345f;
+  text-align: center;
+}
+
+.logo {
+  color: #b47aff;
+  font-size: 19px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: #aaa3b5;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+h1 {
+  margin-top: 34px;
+  font-size: 27px;
+}
+
+.description {
+  color: #b9b5c1;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.info {
+  margin-top: 22px;
+  padding: 17px;
+  background: #292631;
+  border-radius: 13px;
+  text-align: left;
+}
+
+small {
+  color: #b47aff;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.value {
+  margin-top: 10px;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 15px;
+  border: none;
+  border-radius: 11px;
+  background: #9655dc;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+button:active {
+  opacity: .8;
+}
+
+#status {
+  color: #c49aff;
+  font-size: 13px;
+}
+
+.footer {
+  margin-top: 32px;
+  color: #898491;
+  font-size: 11px;
+  line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+
+  <div class="logo">BALART 3D LABS</div>
+  <div class="subtitle">TECNOLOGIA E PERSONALIZAÇÃO</div>
+
+  <h1>Bem-vindo!</h1>
+
+  <p class="description">
+    Conecte-se ao nosso Wi-Fi e aproveite sua experiência.
+  </p>
+
+  <div class="info">
+    <small>NOME DA REDE</small>
+    <div class="value" id="ssid">NOME_DO_WIFI</div>
+  </div>
+
+  <div class="info">
+    <small>SENHA DO WI-FI</small>
+    <div class="value" id="password">SUA_SENHA</div>
+  </div>
+
+  <button onclick="copiarSenha()">
+    COPIAR SENHA
+  </button>
+
+  <p id="status"></p>
+
+  <div class="footer">
+    Impressão 3D • NFC • Personalização<br>
+    Desenvolvido por Balart 3D Labs
+  </div>
+
+</div>
+
+<script>
+const dados = new URLSearchParams(
+  window.location.hash.substring(1)
+);
+
+const ssid = dados.get("ssid");
+const senha = dados.get("password");
+
+if (ssid) {
+  document.getElementById("ssid").textContent = ssid;
+}
+
+if (senha) {
+  document.getElementById("password").textContent = senha;
+}
+
+async function copiarSenha() {
+  const senha = document.getElementById("password").textContent;
+
+  try {
+    await navigator.clipboard.writeText(senha);
+    document.getElementById("status").textContent =
+      "Senha copiada com sucesso!";
+  } catch (e) {
+    document.getElementById("status").textContent =
+      "Selecione e copie a senha manualmente.";
+  }
+}
+</script>
+
+</body>
+</html>
